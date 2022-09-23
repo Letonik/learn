@@ -1,10 +1,9 @@
 import React from 'react';
-import './App.scss'
 
 const App = () => {
   return (
-    <div>
-      <button>ddddddddddddddddd</button>
+    <div className='app'>
+      <h2>ssssss</h2>
     </div>
   );
 };
