@@ -1,10 +1,10 @@
 import {render} from 'react-dom';
 import React from "react";
-import App from "./App";
-import './styles/index.scss';
+import App from "app/App";
+import 'app/styles/index.scss';
 import {BrowserRouter} from "react-router-dom";
-import ThemeProvider from './theme/ThemeProvider';
-import './styles/index.scss'
+import 'app/styles/index.scss'
+import {ThemeProvider} from "app/providers/ThemeProvider";
 
 render(
   <BrowserRouter>
