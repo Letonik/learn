@@ -45,7 +45,10 @@ module.exports = {
     'i18next/no-literal-string': ['error', { markupOnly: true }],
     'object-curly-spacing': ['error', 'always'],
     'max-len': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    'arrow-body-style': 'off',
+    'no-trailing-spaces': 'off',
+    'padded-blocks': 'off'
   },
   globals: {
     __IS_DEV__: true,
