@@ -42,7 +42,9 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'eol-last': 'off',
-    'i18next/no-literal-string': ['error', { markupOnly: true }],
+    'i18next/no-literal-string': ['error', {
+      markupOnly: true, ignoreAttribute: ['data-testid', 'to']
+    }],
     'object-curly-spacing': ['error', 'always'],
     'max-len': 'off',
     'comma-dangle': 'off',
@@ -53,4 +55,12 @@ module.exports = {
   globals: {
     __IS_DEV__: true,
   },
+  overrides: [
+    {
+      files: ['**/src/**/*.test.{ts,tsx}'],
+      rules: {
+        'i18next/no-literal-string': 'off'
+      }
+    }
+  ]
 };
