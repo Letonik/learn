@@ -21,6 +21,7 @@ module.exports = {
     'react',
     '@typescript-eslint',
     'i18next',
+    'react-hooks'
   ],
   rules: {
     indent: [2, 2],
@@ -50,7 +51,12 @@ module.exports = {
     'comma-dangle': 'off',
     'arrow-body-style': 'off',
     'no-trailing-spaces': 'off',
-    'padded-blocks': 'off'
+    'padded-blocks': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'no-multiple-empty-lines': 'off'
   },
   globals: {
     __IS_DEV__: true,
