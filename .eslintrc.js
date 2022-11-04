@@ -56,7 +56,8 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
-    'no-multiple-empty-lines': 'off'
+    'no-multiple-empty-lines': 'off',
+    'no-param-reassign': 'off'
   },
   globals: {
     __IS_DEV__: true,
