@@ -8,7 +8,7 @@ export default {
   title: 'shared/Text',
   component: Text,
   argTypes: {
-    backgroundColor: {control: 'color'},
+    backgroundColor: { control: 'color' },
   },
 } as ComponentMeta<typeof Text>;
 
