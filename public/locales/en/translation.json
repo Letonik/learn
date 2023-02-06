@@ -8,5 +8,17 @@
   "Произошла непредвиденная ошибка": "Something error",
   "Обновить страницу": "Refresh page",
   "Короткий язык": "En",
-  "Войти": "Enter"
+  "Войти": "Enter",
+  "Введите username": "Enter username",
+  "Введите пароль": "Enter password",
+  "Форма авторизации": "Authorisation form",
+  "Главная страница": "Main page",
+  "новый перевод": "новый перевод",
+  "throw error": "throw error",
+  "Переключить": "Переключить",
+  "increment": "increment",
+  "decrement": "decrement",
+  "Вы ввели неверный логин или пароль": "Uncorrect username or password",
+  "Выйти": "Выйти"
 }
+
