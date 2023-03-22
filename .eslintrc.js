@@ -33,6 +33,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'linebreak-style': 0,
     'no-unused-vars': 'warn',
     'no-use-before-define': 'off',
