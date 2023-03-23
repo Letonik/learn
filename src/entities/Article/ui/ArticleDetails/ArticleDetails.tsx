@@ -17,119 +17,119 @@ import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArt
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import cls from './ArticleDetails.module.scss';
 import {
-  getArticleDetailsData,
-  getArticleDetailsError,
-  getArticleDetailsIsLoading,
+    getArticleDetailsData,
+    getArticleDetailsError,
+    getArticleDetailsIsLoading,
 } from '../../model/selectors/articleDetails';
 import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
 
 interface ArticleDetailsProps {
-  className?: string;
-  id: string;
+    className?: string;
+    id: string;
 }
 
 const reducers: ReducersList = {
-  articleDetails: articleDetailsReducer,
+    articleDetails: articleDetailsReducer,
 };
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
-  const {className, id} = props;
-  const {t} = useTranslation();
-  const dispatch = useAppDispatch();
-  const isLoading = useSelector(getArticleDetailsIsLoading);
-  const article = useSelector(getArticleDetailsData);
-  const error = useSelector(getArticleDetailsError);
+    const { className, id } = props;
+    const { t } = useTranslation();
+    const dispatch = useAppDispatch();
+    const isLoading = useSelector(getArticleDetailsIsLoading);
+    const article = useSelector(getArticleDetailsData);
+    const error = useSelector(getArticleDetailsError);
 
-  const renderBlock = useCallback((block: ArticleBlock) => {
-    switch (block.type) {
-      case ArticleBlockType.CODE:
-        return (
-          <ArticleCodeBlockComponent
-            key={block.id}
-            block={block}
-            className={cls.block}
-          />
+    const renderBlock = useCallback((block: ArticleBlock) => {
+        switch (block.type) {
+        case ArticleBlockType.CODE:
+            return (
+                <ArticleCodeBlockComponent
+                    key={block.id}
+                    block={block}
+                    className={cls.block}
+                />
+            );
+        case ArticleBlockType.IMAGE:
+            return (
+                <ArticleImageBlockComponent
+                    key={block.id}
+                    block={block}
+                    className={cls.block}
+                />
+            );
+        case ArticleBlockType.TEXT:
+            return (
+                <ArticleTextBlockComponent
+                    key={block.id}
+                    className={cls.block}
+                    block={block}
+                />
+            );
+        default:
+            return null;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (__PROJECT__ !== 'storybook') {
+            dispatch(fetchArticleById(id));
+        }
+    }, [dispatch, id]);
+
+    let content;
+
+    if (isLoading) {
+        content = (
+            <>
+                <Skeleton className={cls.avatar} width={200} height={200} border="50%" />
+                <Skeleton className={cls.title} width={300} height={32} />
+                <Skeleton className={cls.skeleton} width={600} height={24} />
+                <Skeleton className={cls.skeleton} width="100%" height={200} />
+                <Skeleton className={cls.skeleton} width="100%" height={200} />
+            </>
         );
-      case ArticleBlockType.IMAGE:
-        return (
-          <ArticleImageBlockComponent
-            key={block.id}
-            block={block}
-            className={cls.block}
-          />
+    } else if (error) {
+        content = (
+            <Text
+                align={TextAlign.CENTER}
+                title={t('Произошла ошибка при загрузке статьи.')}
+            />
         );
-      case ArticleBlockType.TEXT:
-        return (
-          <ArticleTextBlockComponent
-            key={block.id}
-            className={cls.block}
-            block={block}
-          />
+    } else {
+        content = (
+            <>
+                <div className={cls.avatarWrapper}>
+                    <Avatar
+                        size={200}
+                        src={article?.img}
+                        className={cls.avatar}
+                    />
+                </div>
+                <Text
+                    className={cls.title}
+                    title={article?.title}
+                    text={article?.subtitle}
+                    size={TextSize.L}
+                />
+                <div className={cls.articleInfo}>
+                    <Icon className={cls.icon} Svg={EyeIcon} />
+                    <Text text={String(article?.views)} />
+                </div>
+                <div className={cls.articleInfo}>
+                    <Icon className={cls.icon} Svg={CalendarIcon} />
+                    <Text text={article?.createdAt} />
+                </div>
+                {article?.blocks.map(renderBlock)}
+            </>
         );
-      default:
-        return null;
     }
-  }, []);
 
-  useEffect(() => {
-    if (__PROJECT__ !== 'storybook') {
-      dispatch(fetchArticleById(id));
-    }
-  }, [dispatch, id]);
-
-  let content;
-
-  if (isLoading) {
-    content = (
-      <>
-        <Skeleton className={cls.avatar} width={200} height={200} border="50%"/>
-        <Skeleton className={cls.title} width={300} height={32}/>
-        <Skeleton className={cls.skeleton} width={600} height={24}/>
-        <Skeleton className={cls.skeleton} width="100%" height={200}/>
-        <Skeleton className={cls.skeleton} width="100%" height={200}/>
-      </>
+    return (
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+            <div className={classNames(cls.ArticleDetails, {}, [className])}>
+                {content}
+            </div>
+        </DynamicModuleLoader>
     );
-  } else if (error) {
-    content = (
-      <Text
-        align={TextAlign.CENTER}
-        title={t('Произошла ошибка при загрузке статьи.')}
-      />
-    );
-  } else {
-    content = (
-      <>
-        <div className={cls.avatarWrapper}>
-          <Avatar
-            size={200}
-            src={article?.img}
-            className={cls.avatar}
-          />
-        </div>
-        <Text
-          className={cls.title}
-          title={article?.title}
-          text={article?.subtitle}
-          size={TextSize.L}
-        />
-        <div className={cls.articleInfo}>
-          <Icon className={cls.icon} Svg={EyeIcon}/>
-          <Text text={String(article?.views)}/>
-        </div>
-        <div className={cls.articleInfo}>
-          <Icon className={cls.icon} Svg={CalendarIcon}/>
-          <Text text={article?.createdAt}/>
-        </div>
-        {article?.blocks.map(renderBlock)}
-      </>
-    );
-  }
-
-  return (
-    <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-      <div className={classNames(cls.ArticleDetails, {}, [className])}>
-        {content}
-      </div>
-    </DynamicModuleLoader>
-  );
 });
